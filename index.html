@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Proyecto Birria Interactiva</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        pjgreen: '#006937',
+                        pjred: '#991b1b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f1f5f9; }
+        .info-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Clases para animación al hacer scroll */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Animación de barras de progreso */
+        .progress-bar-fill {
+            transition: width 1.5s ease-in-out;
+        }
+        
+        /* Ocultar barra de scroll en carrusel horizontal pero permitir scroll */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-slate-700 antialiased pt-16 flex justify-center pb-10 px-4 md:px-8">
+
+    <!-- Sticky Navigation -->
+    <nav class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 border-b border-slate-200">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center overflow-x-auto hide-scrollbar">
+            <div class="flex items-center gap-2 font-display font-bold text-pjgreen text-lg whitespace-nowrap">
+                <i class="fa-solid fa-pizza-slice"></i> PJ 2027
+            </div>
+            <div class="flex gap-2 md:gap-3 text-sm font-bold pl-4">
+                <a href="#anatomia" class="group flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 hover:bg-pjred hover:text-white transition-all duration-300 shadow-sm hover:shadow-md whitespace-nowrap">
+                    <span class="bg-white text-slate-500 group-hover:text-pjred w-5 h-5 flex items-center justify-center rounded-full text-xs transition-colors">🌮</span>
+                    Anatomía
+                </a>
+                <a href="#finanzas" class="group flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 hover:bg-pjred hover:text-white transition-all duration-300 shadow-sm hover:shadow-md whitespace-nowrap">
+                    <span class="bg-white text-slate-500 group-hover:text-pjred w-5 h-5 flex items-center justify-center rounded-full text-xs transition-colors">📈</span>
+                    Estrategia
+                </a>
+                <a href="#mercado" class="group flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 hover:bg-pjred hover:text-white transition-all duration-300 shadow-sm hover:shadow-md whitespace-nowrap">
+                    <span class="bg-white text-slate-500 group-hover:text-pjred w-5 h-5 flex items-center justify-center rounded-full text-xs transition-colors">🎯</span>
+                    Mercado
+                </a>
+                <a href="#galeria" class="group flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 hover:bg-pjred hover:text-white transition-all duration-300 shadow-sm hover:shadow-md whitespace-nowrap">
+                    <span class="bg-white text-slate-500 group-hover:text-pjred w-5 h-5 flex items-center justify-center rounded-full text-xs transition-colors">📱</span>
+                    Galería
+                </a>
+                <a href="#estrategia" class="group flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-pjgreen text-white hover:bg-emerald-800 transition-all duration-300 shadow-md hover:shadow-lg whitespace-nowrap ring-2 ring-pjgreen/20 ring-offset-2">
+                    <span class="bg-white/20 text-white w-5 h-5 flex items-center justify-center rounded-full text-xs">🚀</span>
+                    Horizonte
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden mt-6">
+        
+        <!-- HEADER -->
+        <header class="bg-gradient-to-b from-white to-slate-50 pt-10 pb-8 px-6 text-center border-b-8 border-pjgreen relative fade-in-up visible">
+            <img src="PJ_VERTICAL-VERDE.png" alt="Papa Johns Logo" class="h-24 mx-auto mb-4 object-contain hover:scale-105 transition-transform duration-300" onerror="this.src='https://lh3.googleusercontent.com/gg-dl/AAQ_wbEgd_oSXsSY1BLtk2IDGwvWNWoRNE4d4QPLiRq7qaX1PChue2BIC9p5GsUeqp5lUo7mdz9OgL4lCt0-wbWbXj8fVnMYT3H_bagdP87Xu3sNo_laNK-2e2xNLPBagjn8BPq9DeYK1Wcutn3QQr-ObugJagRbQDlLuuTUgTw_B1VrZyb-_A=s0'">
+            <h1 class="font-display text-4xl md:text-5xl font-extrabold text-slate-900 mb-2 tracking-tight drop-shadow-sm">PROYECTO JALISCO</h1>
+            <h2 class="font-display text-xl md:text-2xl text-pjgreen font-bold uppercase tracking-widest mb-4">Benchmark y Panorama actual</h2>
+            <span class="inline-block bg-slate-100 text-slate-600 font-bold px-4 py-1 rounded-full text-xs tracking-wide shadow-inner border border-slate-200">
+                <i class="fa-solid fa-flask mr-1"></i> INVESTIGACIÓN Y DESARROLLO | COLOMBIA
+            </span>
+        </header>
+
+        <!-- SECCIÓN 1: Anatomía -->
+        <section id="anatomia" class="p-6 md:p-8 border-b border-slate-200 bg-white">
+            <div class="flex flex-col md:flex-row gap-6 items-center fade-in-up">
+                <div class="flex-1 space-y-4">
+                    <h3 class="font-display text-2xl font-bold text-slate-900 border-b-4 border-pjred pb-1 inline-block">Anatomía de la Birria</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start group">
+                            <div class="bg-rose-50 p-2.5 rounded-xl text-pjred mr-3 group-hover:bg-pjred group-hover:text-white transition-colors"><i class="fa-solid fa-cow"></i></div>
+                            <div>
+                                <strong class="block font-display text-base text-slate-900 mb-0.5">Proteína</strong>
+                                <span class="text-slate-600 text-xs">Tradicionalmente se prepara con chivo, carnero o carne de res (Pecho, Morrillo o Costilla), su cocción es lenta (12-16h) y se caracteriza por ser jugosa e intensa en sabor.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <div class="bg-rose-50 p-2.5 rounded-xl text-pjred mr-3 group-hover:bg-pjred group-hover:text-white transition-colors"><i class="fa-solid fa-pepper-hot"></i></div>
+                            <div>
+                                <strong class="block font-display text-base text-slate-900 mb-0.5">El Adobo</strong>
+                                <span class="text-slate-600 text-xs">Una marinada espesa de chiles secos, ajo, vinagre y especias. Su combinación con los jugos crean el consomé: caldo rojo terroso y brillante.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <div class="bg-rose-50 p-2.5 rounded-xl text-pjred mr-3 group-hover:bg-pjred group-hover:text-white transition-colors"><i class="fa-solid fa-spoon"></i></div>
+                            <div>
+                                <strong class="block font-display text-base text-slate-900 mb-0.5">El Ritual</strong>
+                                <span class="text-slate-600 text-xs">La tortilla se baña en la grasa del caldo y se dora. Finalmente, se sumerge (o "chopea") cada trozo en una taza de consomé caliente antes de morderlo.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex-1 w-full h-[350px] md:h-[420px] rounded-2xl overflow-hidden shadow-xl relative bg-black flex items-center justify-center transform hover:scale-[1.02] transition-transform duration-500">
+                    <iframe src="https://www.tiktok.com/embed/v2/7404499575253241134" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2 UNIFICADA: Key Insights y Estrategias -->
+        <section id="finanzas" class="bg-slate-900 text-white p-6 md:p-10 relative overflow-hidden border-b border-slate-800">
+            <!-- Background pattern -->
+            <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+            
+            <h3 class="font-display text-2xl md:text-3xl font-bold mb-8 text-center relative z-10 fade-in-up">Key Insights y Estrategias</h3>
+            
+            <!-- Bloque de Estrategia y Rentabilidad -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-center relative z-10 mb-10">
+                <div class="p-6 bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-slate-700 info-card fade-in-up" style="transition-delay: 100ms;">
+                    <div class="text-3xl text-rose-500 font-display font-bold mb-2">40-50%</div>
+                    <div class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Merma de Carne</div>
+                    <!-- Barra de progreso -->
+                    <div class="w-full bg-slate-700 rounded-full h-1.5 mb-3 overflow-hidden">
+                        <div class="bg-rose-500 h-1.5 rounded-full progress-bar-fill" style="width: 0%" data-width="45%"></div>
+                    </div>
+                    <p class="text-slate-300 text-xs">Se reduce drásticamente el peso en cocción, su costo promedio es de $2.500/120g.</p>
+                </div>
+                
+                <div class="p-6 bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-slate-700 info-card relative fade-in-up" style="transition-delay: 200ms;">
+                    <div class="absolute top-0 right-0 bg-pjgreen text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">Promedio</div>
+                    <div class="text-3xl text-amber-400 font-display font-bold mb-2">41.6%</div>
+                    <div class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Food Cost Base</div>
+                    <div class="w-full bg-slate-700 rounded-full h-1.5 mb-3 overflow-hidden">
+                        <div class="bg-amber-400 h-1.5 rounded-full progress-bar-fill" style="width: 0%" data-width="41.6%"></div>
+                    </div>
+                    <p class="text-slate-300 text-xs">Calculado sobre ticket de $12k. Depende de origen y upselling.</p>
+                </div>
+                
+                <div class="p-6 bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-slate-700 info-card fade-in-up" style="transition-delay: 300ms;">
+                    <div class="text-3xl text-emerald-400 font-display font-bold mb-2">$35k+</div>
+                    <div class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Ticket Promedio</div>
+                    <div class="w-full bg-slate-700 rounded-full h-1.5 mb-3 overflow-hidden">
+                        <div class="bg-emerald-400 h-1.5 rounded-full progress-bar-fill" style="width: 0%" data-width="80%"></div>
+                    </div>
+                    <p class="text-slate-300 text-xs">La venta cruzada es vital para compensar el costo del plato principal.</p>
+                </div>
+            </div>
+
+            <!-- Bloque de Key Insights -->
+            <div class="flex flex-col md:flex-row gap-6 items-center relative z-10 pt-6 border-t border-slate-700/50">
+                <div class="flex-1 w-full flex items-center justify-center fade-in-up">
+                    
+                    <!-- IMAGEN EVOCATIVA DE BIRRIA -->
+                    <div class="relative w-full max-w-[320px] aspect-[4/5] bg-slate-800 rounded-3xl overflow-hidden shadow-2xl mx-auto transform hover:scale-[1.03] transition-transform duration-500 border-4 border-slate-700">
+                        <img src="https://www.thecookierookie.com/wp-content/uploads/2023/03/birria-tacos-square.jpg" alt="Ritual de la Birria" class="absolute inset-0 w-full h-full object-cover object-center" onerror="this.src='https://placehold.co/600x800/991b1b/ffffff?text=Ritual+de+la+Birria'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
+
+                        <!-- Info Overlay -->
+                        <div class="absolute bottom-5 left-5 right-5 z-10 text-white drop-shadow-lg">
+                            <h4 class="font-display font-bold text-lg flex items-center gap-2 mb-1.5">
+                                <i class="fa-solid fa-fire-flame-curved text-amber-400"></i> El Ritual del Dipping
+                            </h4>
+                            <p class="text-xs font-medium leading-relaxed text-slate-300">
+                                Consomé humeante, carne que se deshace y la costra perfecta. La experiencia visual que dispara el antojo.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- FIN IMAGEN -->
+
+                </div>
+                
+                <div class="flex-1 space-y-4 fade-in-up" style="transition-delay: 200ms;">
+                    <!-- Tarjetas de Insights adaptadas a fondo oscuro y más compactas -->
+                    <div class="bg-slate-800/80 backdrop-blur-sm p-5 rounded-2xl shadow-lg border border-slate-700 info-card">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="bg-rose-500/20 p-2 rounded-lg text-rose-400 text-sm"><i class="fa-solid fa-pizza-slice"></i></div>
+                            <h4 class="font-display font-bold text-base text-white">Fusión de Comfort Food</h4>
+                        </div>
+                        <p class="text-slate-400 text-xs ml-11"> Masas tradicionales de maíz o trigo. Adobo rojo, queso fundido y formatos para compartir.</p>
+                    </div>
+                    
+                    <div class="bg-slate-800/80 backdrop-blur-sm p-5 rounded-2xl shadow-lg border border-slate-700 info-card">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="bg-rose-500/20 p-2 rounded-lg text-rose-400 text-sm"><i class="fa-solid fa-magnet"></i></div>
+                            <h4 class="font-display font-bold text-base text-white">ASMR Visual</h4>
+                        </div>
+                        <p class="text-slate-400 text-xs ml-11">Diseñada para plataformas. El <strong class="text-slate-200">"Cheese Pull"</strong> y el ritual de sumergir generan alto engagement.</p>
+                    </div>
+
+                    <div class="bg-rose-950/40 p-5 rounded-2xl shadow-lg border border-rose-500/30 info-card">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="bg-rose-600 p-2 rounded-lg text-white text-sm"><i class="fa-solid fa-motorcycle"></i></div>
+                            <h4 class="font-display font-bold text-base text-rose-400">El Reto del Delivery</h4>
+                        </div>
+                        <p class="text-slate-300 text-xs ml-11">El vapor del caldo tiende a derretir empaques y las masas llegan sin crocancia o se desbaratan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: Competencia -->
+        <section id="mercado" class="p-6 md:p-8 border-b border-slate-200 bg-slate-50">
+            <div class="text-center md:text-left">
+                <h3 class="font-display text-2xl font-bold text-slate-900 border-b-4 border-pjgreen pb-1 inline-block mb-6 fade-in-up">Radiografía en Bogotá</h3>
+            </div>
+            
+            <!-- Contenedor max-w-2xl para estrechar la tabla centrándola -->
+            <div class="max-w-2xl mx-auto overflow-x-auto bg-white rounded-2xl shadow-sm border border-slate-200 fade-in-up">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-slate-50 text-pjgreen font-display border-b-2 border-pjgreen">
+                            <th class="py-3 px-4 rounded-tl-lg font-bold">Marca</th>
+                            <th class="py-3 px-4 font-bold hidden sm:table-cell">Enfoque</th>
+                            <th class="py-3 px-4 rounded-tr-lg font-bold text-right">Ticket</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-700">
+                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                            <td class="py-3 px-4 font-bold text-slate-900 whitespace-nowrap">El Jefe Tacos 🐮</td>
+                            <td class="py-3 px-4 text-xs hidden sm:table-cell">Formato tradicional y maridaje.</td>
+                            <td class="py-3 px-4 text-right">
+                                <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap">$25k - $30k</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                            <td class="py-3 px-4 font-bold text-slate-900 whitespace-nowrap">Rogelio Redtacos 🐮</td>
+                            <td class="py-3 px-4 text-xs hidden sm:table-cell">Costra de queso y ASMR visual.</td>
+                            <td class="py-3 px-4 text-right">
+                                <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap">$35k - $45k</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                            <td class="py-3 px-4 font-bold text-slate-900 whitespace-nowrap">Taquitos Pa' 🐮🐷</td>
+                            <td class="py-3 px-4 text-xs hidden sm:table-cell">Delivery y combos familiares.</td>
+                            <td class="py-3 px-4 text-right">
+                                <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap">$35k - $45k</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                            <td class="py-3 px-4 font-bold text-slate-900 whitespace-nowrap">El Pantera 🐮🐷</td>
+                            <td class="py-3 px-4 text-xs hidden sm:table-cell">Técnica de autor y sabor local.</td>
+                            <td class="py-3 px-4 text-right">
+                                <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap">$35k - $45k</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                            <td class="py-3 px-4 font-bold text-slate-900 whitespace-nowrap">Contundente 🐮🐷</td>
+                            <td class="py-3 px-4 text-xs hidden sm:table-cell">Formato sándwich brioche.</td>
+                            <td class="py-3 px-4 text-right">
+                                <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap">$35k - $45k</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                            <td class="py-3 px-4 font-bold text-slate-900 whitespace-nowrap">La Birrieria 🐮🐷</td>
+                            <td class="py-3 px-4 text-xs hidden sm:table-cell">Volumen enfocado en delivery.</td>
+                            <td class="py-3 px-4 text-right">
+                                <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap">$35k - $45k</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                            <td class="py-3 px-4 font-bold text-slate-900 whitespace-nowrap">Birria del Gordo 🐮🐷</td>
+                            <td class="py-3 px-4 text-xs hidden sm:table-cell">Híbridos salvajes (Birrialocos).</td>
+                            <td class="py-3 px-4 text-right">
+                                <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap">$35k - $50k</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="py-3 px-4 font-bold text-slate-900 whitespace-nowrap">Sagrada Taquería 🐮</td>
+                            <td class="py-3 px-4 text-xs hidden sm:table-cell">Pioneros en fusiones (Pizza, Ramen).</td>
+                            <td class="py-3 px-4 text-right">
+                                <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap">$40k - $55k</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: Regiones -->
+        <section class="p-6 md:p-8 border-b border-slate-200 bg-white">
+            <h3 class="font-display text-2xl font-bold text-slate-900 border-b-4 border-pjgreen pb-1 inline-block mb-6 fade-in-up">Regiones y Nichos</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Regiones -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col info-card fade-in-up">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="text-pjgreen text-xl"><i class="fa-solid fa-mountain-city"></i></div>
+                        <h4 class="font-display font-bold text-base text-slate-900">Medellín (Volumen)</h4>
+                    </div>
+                    <p class="text-slate-600 text-xs flex-grow mb-4">Dominan los Food Trucks y la vida nocturna. Fuerte influencia de creadores de contenido (Ej: Criminal Taquería).</p>
+                    <div class="mt-auto border-t border-slate-100 pt-2">
+                        <span class="inline-block bg-slate-100 text-slate-600 text-[10px] font-bold px-2.5 py-1 rounded-full"><i class="fa-solid fa-tag text-pjgreen mr-1"></i> Ticket: $30k - $40k</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col info-card fade-in-up" style="transition-delay: 100ms;">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="text-pjgreen text-xl"><i class="fa-solid fa-pepper-hot"></i></div>
+                        <h4 class="font-display font-bold text-base text-slate-900">Cali (Sabor Callejero)</h4>
+                    </div>
+                    <p class="text-slate-600 text-xs flex-grow mb-4">Exigencia extrema en sazón; prefieren los formatos tradicionales de calle y toleran el alto picante (Ej: La Neta).</p>
+                    <div class="mt-auto border-t border-slate-100 pt-2">
+                        <span class="inline-block bg-slate-100 text-slate-600 text-[10px] font-bold px-2.5 py-1 rounded-full"><i class="fa-solid fa-tag text-pjgreen mr-1"></i> Ticket: $25k - $35k</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col info-card fade-in-up" style="transition-delay: 200ms;">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="text-pjgreen text-xl"><i class="fa-solid fa-sun"></i></div>
+                        <h4 class="font-display font-bold text-base text-slate-900">Costa (Clima)</h4>
+                    </div>
+                    <p class="text-slate-600 text-xs flex-grow mb-4">Consumo desplazado a la noche. El consomé solo se tolera como un dip en raciones pequeñas (Ej: Mexcal, Pancho Birria).</p>
+                    <div class="mt-auto border-t border-slate-100 pt-2">
+                        <span class="inline-block bg-slate-100 text-slate-600 text-[10px] font-bold px-2.5 py-1 rounded-full"><i class="fa-solid fa-tag text-pjgreen mr-1"></i> Ticket: $28k - $38k</span>
+                    </div>
+                </div>
+                
+                <!-- Nichos -->
+                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-lg flex flex-col info-card fade-in-up" style="transition-delay: 300ms;">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="text-amber-400 text-xl"><i class="fa-solid fa-gem"></i></div>
+                        <h4 class="font-display font-bold text-base text-white">Joyas Ocultas (BOG)</h4>
+                    </div>
+                    <ul class="text-slate-300 text-xs space-y-2 flex-grow mb-4">
+                        <li><strong class="text-white">Insurgentes:</strong> Modelo experiencial, mezcal.</li>
+                        <li><strong class="text-white">Don Clemente:</strong> Inmersión tradicional.</li>
+                        <li><strong class="text-white">La Incondicional:</strong> Volúmen, precios agresivos.</li>
+                    </ul>
+                    <div class="mt-auto border-t border-slate-700 pt-2">
+                        <span class="inline-block bg-slate-800 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-full"><i class="fa-solid fa-tag mr-1"></i> Ticket: $45k - $65k</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 6: Galería Social y Referencias -->
+        <section id="galeria" class="p-6 md:p-8 border-b border-slate-200 bg-slate-100 overflow-hidden fade-in-up">
+            <h3 class="font-display text-2xl font-bold text-slate-900 border-b-4 border-pjred pb-1 inline-block mb-6">Galería Social y Referencias</h3>
+            
+            <h4 class="font-display font-bold text-base text-slate-800 mb-3"><i class="fa-brands fa-tiktok mr-2"></i> Tendencia en TikTok</h4>
+            <!-- Carrusel Horizontal de TikTok -->
+            <div class="flex overflow-x-auto gap-4 pb-4 snap-x hide-scrollbar" style="scrollbar-width: thin;">
+                <!-- Rogelio -->
+                <div class="snap-center shrink-0 w-64 h-[400px] bg-black rounded-2xl overflow-hidden shadow-md">
+                    <iframe src="https://www.tiktok.com/embed/v2/7669258553496046866" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <!-- Sagrada -->
+                <div class="snap-center shrink-0 w-64 h-[400px] bg-black rounded-2xl overflow-hidden shadow-md">
+                    <iframe src="https://www.tiktok.com/embed/v2/7572328091427540244" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <!-- El Jefe 1 -->
+                <div class="snap-center shrink-0 w-64 h-[400px] bg-black rounded-2xl overflow-hidden shadow-md">
+                    <iframe src="https://www.tiktok.com/embed/v2/7431351456340479237" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <!-- El Jefe 2 -->
+                <div class="snap-center shrink-0 w-64 h-[400px] bg-black rounded-2xl overflow-hidden shadow-md">
+                    <iframe src="https://www.tiktok.com/embed/v2/7335251557421681925" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <!-- El Jefe 3 -->
+                <div class="snap-center shrink-0 w-64 h-[400px] bg-black rounded-2xl overflow-hidden shadow-md">
+                    <iframe src="https://www.tiktok.com/embed/v2/7642765650636688647" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <!-- Birria Cerdo -->
+                <div class="snap-center shrink-0 w-64 h-[400px] bg-black rounded-2xl overflow-hidden shadow-md">
+                    <iframe src="https://www.tiktok.com/embed/v2/7603623542386658573" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <!-- Contundente -->
+                <div class="snap-center shrink-0 w-64 h-[400px] bg-black rounded-2xl overflow-hidden shadow-md">
+                    <iframe src="https://www.tiktok.com/embed/v2/7578688250118671637" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <h4 class="font-display font-bold text-base text-slate-800 mt-4 mb-3"><i class="fa-brands fa-instagram text-pink-600 mr-2"></i> Joyas Ocultas</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="https://www.instagram.com/insurgentestacobar/?hl=es" target="_blank" class="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 hover:border-pink-500 hover:shadow-lg transition-all info-card">
+                    <div class="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white p-2 rounded-full"><i class="fa-brands fa-instagram"></i></div>
+                    <div>
+                        <div class="font-bold text-sm text-slate-800">@insurgentestacobar</div>
+                        <div class="text-[10px] text-slate-500">Modelo Experiencial</div>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/taqueriadonclemente/?hl=es" target="_blank" class="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 hover:border-pink-500 hover:shadow-lg transition-all info-card">
+                    <div class="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white p-2 rounded-full"><i class="fa-brands fa-instagram"></i></div>
+                    <div>
+                        <div class="font-bold text-sm text-slate-800">@taqueriadonclemente</div>
+                        <div class="text-[10px] text-slate-500">Inmersión Tradicional</div>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/laincondicional_bta/?hl=es-la" target="_blank" class="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 hover:border-pink-500 hover:shadow-lg transition-all info-card">
+                    <div class="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white p-2 rounded-full"><i class="fa-brands fa-instagram"></i></div>
+                    <div>
+                        <div class="font-bold text-sm text-slate-800">@laincondicional_bta</div>
+                        <div class="text-[10px] text-slate-500">Volumen Masivo</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 7: Cierre Estratégico -->
+        <section id="estrategia" class="bg-pjgreen text-white p-6 md:p-10 text-center relative overflow-hidden">
+            <!-- Efecto visual de fondo -->
+            <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=')]"></div>
+            
+            <div class="relative z-10 fade-in-up">
+                <h3 class="font-display text-2xl md:text-3xl font-bold mb-4">La Gran Oportunidad</h3>
+                <p class="text-emerald-100 max-w-2xl mx-auto mb-8 text-sm md:text-base">
+                    El mercado actual está <strong class="text-amber-400 font-bold">altamente fragmentado</strong>. La ausencia de marcas referentes a gran escala nos abre una ventana para <strong class="text-amber-400 font-bold">liderar el sector</strong>.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+                    <div class="bg-white/10 p-6 rounded-2xl border border-white/20 backdrop-blur-md hover:bg-white/20 transition-colors info-card">
+                        <i class="fa-solid fa-motorcycle text-3xl text-emerald-300 mb-4"></i>
+                        <h4 class="font-display font-bold text-lg mb-2 text-white">Delivery y la Experiencia</h4>
+                        <p class="text-xs text-emerald-50 leading-relaxed">La Birria es un mercado masivo que demanda <strong class="text-amber-400">experiencia completa</strong>: Producto crocante postpreparación con consomé en <strong class="text-amber-400">empaque hermético</strong>.</p>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-2xl border border-white/20 backdrop-blur-md hover:bg-white/20 transition-colors info-card" style="transition-delay: 100ms;">
+                        <i class="fa-solid fa-pizza-slice text-3xl text-emerald-300 mb-4"></i>
+                        <h4 class="font-display font-bold text-lg mb-2 text-white">Sabores Locales</h4>
+                        <p class="text-xs text-emerald-50 leading-relaxed">Lograr el perfil característico adaptándonos a <strong class="text-amber-400">ingredientes locales</strong> para <strong class="text-amber-400">optimizar la rentabilidad</strong> sin sacrificar autenticidad.</p>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-2xl border border-white/20 backdrop-blur-md hover:bg-white/20 transition-colors info-card" style="transition-delay: 200ms;">
+                        <i class="fa-solid fa-flask text-3xl text-emerald-300 mb-4"></i>
+                        <h4 class="font-display font-bold text-lg mb-2 text-white">Ruta Sensorial</h4>
+                        <p class="text-xs text-emerald-50 leading-relaxed">Realizar una <strong class="text-amber-400">cata sensorial</strong> comparativa nos permitirá decidir la <strong class="text-amber-400">identidad del producto</strong> y hacia qué tendencia queremos llevar la experiencia.</p>
+                    </div>
+                </div>
+
+                <div class="pt-8 border-t border-white/20">
+                    <img src="PJ_VERTICAL-VERDE.png" alt="Papa Johns Logo" class="h-20 mx-auto brightness-0 invert opacity-95 object-contain hover:scale-105 transition-transform" onerror="this.src='https://lh3.googleusercontent.com/gg-dl/AAQ_wbEgd_oSXsSY1BLtk2IDGwvWNWoRNE4d4QPLiRq7qaX1PChue2BIC9p5GsUeqp5lUo7mdz9OgL4lCt0-wbWbXj8fVnMYT3H_bagdP87Xu3sNo_laNK-2e2xNLPBagjn8BPq9DeYK1Wcutn3QQr-ObugJagRbQDlLuuTUgTw_B1VrZyb-_A=s0'">
+                    <p class="mt-4 text-emerald-100 font-display font-bold tracking-widest text-sm md:text-base">¿ESTAMOS LISTOS PARA INNOVAR?</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Script para animar elementos "fade-in-up" cuando entran en pantalla
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Si el elemento contiene barras de progreso, animarlas
+                        const progressBars = entry.target.querySelectorAll('.progress-bar-fill');
+                        progressBars.forEach(bar => {
+                            const targetWidth = bar.getAttribute('data-width');
+                            // Pequeño delay para que se vea la transición al aparecer
+                            setTimeout(() => {
+                                bar.style.width = targetWidth;
+                            }, 300);
+                        });
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
